@@ -7,16 +7,21 @@ function addItemToCart(name, price) {
     name,
     price,
   });
-  calcCartTotal();
+  calcCartTotal(shoppingCart);
 }
 
 function calcCartTotal() {
-  shoppingCartTotal = 0; // 전역 변수를 수정하였으므로 암묵적 출력입니다.
-  for (let i = 0; i < shoppingCart.length; i++) {
-    const item = shoppingCart[i];
-    shoppingCartTotal += item.price; // 전역 변수를 수정하였으므로 암묵적 출력입니다.
-  }
+  shoppingCartTotal = clacTotal();
   setCartTotalDom();
+}
+
+function clacTotal(cart) {
+  let total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    const item = cart[i];
+    total += item.price;
+  }
+  return total;
 }
 
 function setCartTotalDom() {
