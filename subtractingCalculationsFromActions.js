@@ -3,6 +3,7 @@ let shoppingCartTotal = 0;
 
 function addItemToCart(name, price) {
   shoppingCart.push({
+    // 전역 변수를 수정하였으므로 암묵적 출력입니다.
     name,
     price,
   });
@@ -10,10 +11,10 @@ function addItemToCart(name, price) {
 }
 
 function calcCartTotal() {
-  shoppingCartTotal = 0;
+  shoppingCartTotal = 0; // 전역 변수를 수정하였으므로 암묵적 출력입니다.
   for (let i = 0; i < shoppingCart.length; i++) {
     const item = shoppingCart[i];
-    shoppingCartTotal += item.price;
+    shoppingCartTotal += item.price; // 전역 변수를 수정하였으므로 암묵적 출력입니다.
   }
   setCartTotalDom();
 }
