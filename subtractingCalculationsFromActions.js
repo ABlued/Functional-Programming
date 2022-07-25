@@ -2,12 +2,17 @@ let shoppingCart = [];
 let shoppingCartTotal = 0;
 
 function addItemToCart(name, price) {
-  shoppingCart.push({
-    // 전역 변수를 수정하였으므로 암묵적 출력입니다.
+  shoppingCart = addItem(shoppingCartTotal, name, price);
+  calcCartTotal(shoppingCart);
+}
+
+function addItem(cart, name, price) {
+  let newCart = cart.slice();
+  newCart.push({
     name,
     price,
   });
-  calcCartTotal(shoppingCart);
+  return newCart;
 }
 
 function calcCartTotal() {
@@ -24,19 +29,19 @@ function clacTotal(cart) {
   return total;
 }
 
+/**
+ * 이런 식으로 함수 내에 암묵적 입력, 출력을 제거하여 액션에서 계산을 빼내는 것이 좋다.
+ * 이런 방식을 통해 함수는
+ * 1. DOM 업데이트와 비즈니스 로직이 분리되었으며
+ * 2. 함수는 더 이상 전역변수의 의존되지 않고
+ * 3. 결괏값을 리턴하게 되었다.
+ *
+ * 이런 방식은 다음의 장점들이 있다.
+ *
+ * 1. 재사용성을 높인다. (액션보다는 계산이 여러 군데에서 사용될 가능성이 높다.)
+ * 2. 쉽게 테스트할 수 있다.(계산은 함수의 호출시점, 호출한 수의 의존하지 않는다.)
+ */
+
 function setCartTotalDom() {
   // 금액 합계를 반영하기 위해 DOM 업데이트를 하는 코드...
 }
-
-/**
- * 위와 같은 함수는 좋지 않다.
- * 그 이유는 다음과 같다.
- * 1. DOM 업데이트와 비즈니스 로직이 하나의 함수에서 동작하고 있다.
- * 2. 함수 내에서 전역변수를 읽고 수정하고 있다.
- *
- * 이와 같은 이유로 다음 함수는 3가지의 규칙을 통해 리팩토링하고자 한다.
- * 1. 전역변수에 의존하지 말 것
- * 2. DOM을 사용할 수 있는 곳에서 실행된다고 가정하지 말 것
- * 3. 함수는 결괏값을 리턴할 것
- *
- */
