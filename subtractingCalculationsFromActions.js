@@ -34,15 +34,17 @@ function updateShippingIcons() {
   for (let i = 0; i < buyButtons.length; i++) {
     const button = buyButtons[i];
     const item = button.item;
-    if (item.price + shoppingCartTotal >= 20) {
-      // 물건의 가격이 2만원 이상이면(비즈니스 규칙) 쇼핑아이콘이 활성화 되야한다.(dom 업데이트 로직)
-      // 비즈니스 규칙과 dom 업데이트 로직이 한 곳에 동시에 존재하면 좋지 않다.
-      // 또 이 구문은 shoppingCartTotal이라는 전역 변수에 접근하고 있다.(암묵적 입력)
+    if (getsFreeShipping(shoppingCartTotal, item.price)) {
+      // Dom 업데이트 로직과 비즈니스 규칙이 분리되었다.
       button.showFreeShoppingIcons();
     } else {
       button.hideFreeShoppingIcons();
     }
   }
+}
+
+function getsFreeShipping(itemPrice, total) {
+  return itemPrice + total >= 20; // 암묵적 입력과 출력이 없다.
 }
 
 function updateTaxDom() {
