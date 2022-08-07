@@ -1,6 +1,11 @@
 let shoppingCart = [];
 let shoppingCartTotal = 0;
 
+// 의미 있는 계층에 대해서 알아봅시다
+// 함수가 장바구니 구조를 알아야 하면 C,
+// 제품 구조를 알아야 하면 I
+// 비즈니스 규칙에 대한 함수이면 B를 표시합시다.
+
 function addItemToCart(name, price) {
   shoppingCart = addItem(shoppingCartTotal, name, price);
   calcCartTotal(shoppingCart);
@@ -9,7 +14,7 @@ function addItemToCart(name, price) {
   updateShippingIcons(cart);
   updateTaxDom(total);
 }
-
+// C, I
 function addItem(cart, name, price) {
   let newCart = cart.slice();
   newCart.push({
@@ -18,7 +23,7 @@ function addItem(cart, name, price) {
   });
   return newCart;
 }
-
+// C, I, B
 function clacTotal(cart) {
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
@@ -41,7 +46,7 @@ function updateShippingIcons(cart) {
     }
   }
 }
-
+// B
 function getsFreeShipping(cart) {
   // 함수의 기능 자체를 바꾸었기 때문에 리팩토링이 아닙니다.
   // 하지만 장바구니 내용을 이용하여 무료 배송인지 알려줍니다.
@@ -52,7 +57,7 @@ function getsFreeShipping(cart) {
 function updateTaxDom(total) {
   setTaxDom(clacTax(total));
 }
-
+// B
 function clacTax(amount) {
   return amount * 0.1;
 }
