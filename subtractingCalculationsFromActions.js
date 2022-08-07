@@ -4,10 +4,12 @@ let shoppingCartTotal = 0;
 // 의미 있는 계층에 대해서 알아봅시다
 // 함수가 장바구니 구조를 알아야 하면 C,
 // 제품 구조를 알아야 하면 I
-// 비즈니스 규칙에 대한 함수이면 B를 표시합시다.
+// 비즈니스 규칙에 대한 함수이면 B
+// 배열 유틸리티 함수이면 A를 표시합시다.
 
 function addItemToCart(name, price) {
-  shoppingCart = addItem(shoppingCartTotal, makeCartItem(name, price));
+  const item = makeCartItem(name, price);
+  shoppingCart = addItem(shoppingCartTotal, item);
   calcCartTotal(shoppingCart);
   const total = clacTotal(cart);
   setCartTotalDom(total);
@@ -15,11 +17,12 @@ function addItemToCart(name, price) {
   updateTaxDom(total);
 }
 
+// C
 function addItem(cart, item) {
   return addElementLast(cart, item);
 }
 
-// 장바구니 제품에만 쓸 수 있는 함수가 아닌 배열이나 항목에도 쓸 수 있는 이름으로 바꿨습니다.
+// A
 function addElementLast(array, element) {
   let newArray = array.slice();
   newArray.push(element);
