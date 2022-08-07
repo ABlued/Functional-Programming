@@ -14,12 +14,18 @@ function addItemToCart(name, price) {
   updateShippingIcons(cart);
   updateTaxDom(total);
 }
-// C
+
 function addItem(cart, item) {
-  let newCart = cart.slice();
-  newCart.push(item);
-  return newCart;
+  return addElementLast(cart, item);
 }
+
+// 장바구니 제품에만 쓸 수 있는 함수가 아닌 배열이나 항목에도 쓸 수 있는 이름으로 바꿨습니다.
+function addElementLast(array, element) {
+  let newArray = array.slice();
+  newArray.push(element);
+  return newArray;
+}
+
 // I
 function makeCartItem(name, price) {
   return {
@@ -27,10 +33,7 @@ function makeCartItem(name, price) {
     price,
   };
 }
-/**
- * 이렇게 C, I 구조를 알아야 했던 함수를 분리하면 cart와 item을 독립적으로 확장할 수 있습니다.
- * 예를 들어 배열인 cart를 해시ㅣ 맵 같은 자료 구조로 바꾼다고 할 때 변경해야 할 부분이 적어집니다.
- */
+
 // C, I, B
 function clacTotal(cart) {
   let total = 0;
@@ -54,6 +57,7 @@ function updateShippingIcons(cart) {
     }
   }
 }
+
 // B
 function getsFreeShipping(cart) {
   return clacTotal(cart) >= 20;
@@ -62,6 +66,7 @@ function getsFreeShipping(cart) {
 function updateTaxDom(total) {
   setTaxDom(clacTax(total));
 }
+
 // B
 function clacTax(amount) {
   return amount * 0.1;
