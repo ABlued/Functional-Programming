@@ -25,6 +25,7 @@ function clacTotal(cart) {
   for (let i = 0; i < cart.length; i++) {
     const item = cart[i];
     total += item.price;
+    // 또한 중복된 코드가 있습니다. 합계에 제품 가격을 더하는 코드가 두 군데 있습니다.
   }
   return total;
 }
@@ -44,7 +45,13 @@ function updateShippingIcons() {
 }
 
 function getsFreeShipping(itemPrice, total) {
-  return itemPrice + total >= 20; // 암묵적 입력과 출력이 없다.
+  // 이 함수에는 더 이상 암묵적 입출력이 없지만 요구사항에 부합한 함수입니다.
+  /**
+   * 요구 사항은 장바구니에 담긴 제품을 주문할 때 무료 배송인지 확인하는 것인데
+   * 장바구니로 무료 배송을 확인하지 않고 제품의 합계와 가격으로 학인하고 있습니다.
+   * 이 함수는 비즈니스 요구 사항과 맞지 않는 인자라고 할 수 있습니다.
+   */
+  return itemPrice + total >= 20;
 }
 
 function updateTaxDom() {
