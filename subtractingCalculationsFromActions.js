@@ -15,11 +15,11 @@ function addItem(cart, name, price) {
   return newCart;
 }
 
-function calcCartTotal() {
-  shoppingCartTotal = clacTotal();
-  setCartTotalDom();
-  updateShippingIcons(shoppingCart);
-  updateTaxDom();
+function calcCartTotal(cart) {
+  const total = clacTotal(cart);
+  setCartTotalDom(total);
+  updateShippingIcons(cart);
+  updateTaxDom(total);
 }
 
 function clacTotal(cart) {
@@ -52,8 +52,8 @@ function getsFreeShipping(cart) {
   return clacTotal(cart) >= 20;
 }
 
-function updateTaxDom() {
-  setTaxDom(clacTax(shoppingCartTotal));
+function updateTaxDom(total) {
+  setTaxDom(clacTax(total));
 }
 
 function clacTax(amount) {
@@ -64,6 +64,6 @@ function setTaxDom() {
   // 세금을 반영하기 위해 DOM 업데이트를 하는 코드...
 }
 
-function setCartTotalDom() {
+function setCartTotalDom(total) {
   // 금액 합계를 반영하기 위해 DOM 업데이트를 하는 코드...
 }
