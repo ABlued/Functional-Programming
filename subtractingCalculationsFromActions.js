@@ -4,6 +4,10 @@ let shoppingCartTotal = 0;
 function addItemToCart(name, price) {
   shoppingCart = addItem(shoppingCartTotal, name, price);
   calcCartTotal(shoppingCart);
+  const total = clacTotal(cart);
+  setCartTotalDom(total);
+  updateShippingIcons(cart);
+  updateTaxDom(total);
 }
 
 function addItem(cart, name, price) {
@@ -13,13 +17,6 @@ function addItem(cart, name, price) {
     price,
   });
   return newCart;
-}
-
-function calcCartTotal(cart) {
-  const total = clacTotal(cart);
-  setCartTotalDom(total);
-  updateShippingIcons(cart);
-  updateTaxDom(total);
 }
 
 function clacTotal(cart) {
