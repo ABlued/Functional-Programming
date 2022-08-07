@@ -7,22 +7,30 @@ let shoppingCartTotal = 0;
 // 비즈니스 규칙에 대한 함수이면 B를 표시합시다.
 
 function addItemToCart(name, price) {
-  shoppingCart = addItem(shoppingCartTotal, name, price);
+  shoppingCart = addItem(shoppingCartTotal, makeCartItem(name, price));
   calcCartTotal(shoppingCart);
   const total = clacTotal(cart);
   setCartTotalDom(total);
   updateShippingIcons(cart);
   updateTaxDom(total);
 }
-// C, I
-function addItem(cart, name, price) {
+// C
+function addItem(cart, item) {
   let newCart = cart.slice();
-  newCart.push({
-    name,
-    price,
-  });
+  newCart.push(item);
   return newCart;
 }
+// I
+function makeCartItem(name, price) {
+  return {
+    name,
+    price,
+  };
+}
+/**
+ * 이렇게 C, I 구조를 알아야 했던 함수를 분리하면 cart와 item을 독립적으로 확장할 수 있습니다.
+ * 예를 들어 배열인 cart를 해시ㅣ 맵 같은 자료 구조로 바꾼다고 할 때 변경해야 할 부분이 적어집니다.
+ */
 // C, I, B
 function clacTotal(cart) {
   let total = 0;
@@ -38,7 +46,7 @@ function updateShippingIcons(cart) {
   for (let i = 0; i < buyButtons.length; i++) {
     const button = buyButtons[i];
     const item = button.item;
-    const newCart = addItem(cart, item.name, item.price);
+    const newCart = addItem(cart, makeCartItem(item.name, item.price));
     if (getsFreeShipping(newCart)) {
       button.showFreeShoppingIcons();
     } else {
@@ -48,9 +56,6 @@ function updateShippingIcons(cart) {
 }
 // B
 function getsFreeShipping(cart) {
-  // 함수의 기능 자체를 바꾸었기 때문에 리팩토링이 아닙니다.
-  // 하지만 장바구니 내용을 이용하여 무료 배송인지 알려줍니다.
-  // 또한 중복되는 코드도 사라졌습니다.
   return clacTotal(cart) >= 20;
 }
 
