@@ -1,32 +1,29 @@
-// 이 함수들은 문제점이 2가지 있다.
 /**
- * 첫째는 중복되는 코드들이며
- * 둘째는 필드를 결정하는 문자열이 함수 이름에 있다는 것이다.
- * 함수 이름에 있는 일부가 인자처럼 동작한다.
- * 이렇게 값을 명시적으로 전달하지 않고 함수 이름의 일부로 '전달'하고 있습니다.
- * 이를 '함수 이름에 있는 암묵적 인자' 라고 부른다.
+ * 이에 대한 해결책은 암묵적 인자를 명시적인 인자로 바꾸는 것이다.
+ * 이를 암묵적 인자를 드러내기 라는 리팩터링이라 부르며
+ * 드러낸다 라는 의미는 암묵적인 것을 명시적으로 바꾼다는 것을 말한다.
+ * 리팩터링 단계는 다음과 같다.
+ * 1. 함수 이름에 있는 암묵적 인자를 확인한다.
+ * 2. 명시적인 인자를 추가한다.
+ * 3. 함수 본문에 하드 코딩된 값을 새로운 인자로 바꾼다.
+ * 4. 함수를 부르는 곳을 고친다.
  */
-function setPriceByName(cart, name, price) {
+
+const cart = {};
+
+cart = setFieldByName(cart, 'shoes', 'price', 13);
+cart = setFieldByName(cart, 'shoes', 'quantity', 3);
+cart = setFieldByName(cart, 'shoes', 'shipping', 0);
+cart = setFieldByName(cart, 'shoes', 'tax', 2.34);
+
+// cart = setPriceByName(cart, "shoes", 13);
+// cart = setQuanitityByName(cart, "shoes", 3);
+// cart = setShippingByName(cart, "shoes", 0);
+// cart = setTaxByName(cart, "shoes", 2.34);
+
+function setFieldByName(cart, name, field, value) {
   const item = cart[name];
-  const newItem = objectSet(item, 'price', price);
-  const newCart = objectSet(cart, name, newItem);
-  return newCart;
-}
-function setQuantityByName(cart, name, quant) {
-  const item = cart[name];
-  const newItem = objectSet(item, 'quantity', quant);
-  const newCart = objectSet(cart, name, newItem);
-  return newCart;
-}
-function setShippingByName(cart, name, ship) {
-  const item = cart[name];
-  const newItem = objectSet(item, 'shipping', ship);
-  const newCart = objectSet(cart, name, newItem);
-  return newCart;
-}
-function setTaxByName(cart, name, tax) {
-  const item = cart[name];
-  const newItem = objectSet(item, 'tax', tax);
+  const newItem = objectSet(item, field, value);
   const newCart = objectSet(cart, name, newItem);
   return newCart;
 }
@@ -36,3 +33,9 @@ function objectSet(object, key, value) {
   copy[key] = value;
   return copy;
 }
+
+/**
+ * 리팩터링으로 필드명을 일급 값으로 만들었다.
+ * 값은 변수나 배열에 담을 수 있다.
+ * 그래서 일급(first-class)라고 부른다.
+ */
